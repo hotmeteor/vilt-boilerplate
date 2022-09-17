@@ -1,0 +1,11 @@
+@import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+@import "tailwindcss/utilities.css";
+
+/*
+fixme   not able to add classes easily to the root component
+        https://github.com/inertiajs/inertia-laravel/issues/370
+*/
+/*#app {*/
+/*    @apply h-full;*/
+/*}*/
