@@ -4,7 +4,7 @@
     - Jetstream
     - Pint
     - Sanctum
-    - Telescope
+    - Telescope (local only)
 - Vite 4
 - Vue 3.2
 - Tailwind 3.1
