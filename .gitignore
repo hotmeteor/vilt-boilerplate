@@ -1,3 +1,4 @@
+/.phpunit.cache
 /node_modules
 /public/build
 /public/hot
@@ -5,14 +6,15 @@
 /storage/*.key
 /vendor
 .env
-.env.testing
 .env.backup
+.env.production
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 auth.json
 npm-debug.log
 yarn-error.log
+/.fleet
 /.idea
 /.vscode
 _ide_helper.php

@@ -1,0 +1,7 @@
+{
+  "globals": {
+    "route": true,
+    "trans": true,
+    "transChoice": true
+  }
+}
