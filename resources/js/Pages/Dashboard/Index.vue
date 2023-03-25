@@ -133,7 +133,6 @@ import {
 } from '@heroicons/vue/20/solid'
 import {BookmarkIcon, BookmarkSlashIcon} from '@heroicons/vue/24/outline'
 import Avatar from "vue-boring-avatars";
-import spacetime from 'spacetime'
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import BookmarkedProject from "./Components/BookmarkedProject.vue";
