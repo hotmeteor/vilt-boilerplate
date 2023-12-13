@@ -14,7 +14,7 @@ class AssertableInertiaMixin
 {
     public function modal(): Closure
     {
-        return function (string $value = null, $shouldExist = null) {
+        return function (?string $value = null, $shouldExist = null) {
             PHPUnit::assertSame($value, $this->prop('modal.component'), 'Unexpected Inertia modal component.');
 
             if ($shouldExist || (is_null($shouldExist) && config('inertia.testing.ensure_pages_exist', true))) {

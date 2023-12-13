@@ -13,8 +13,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-        mono: defaultTheme.fontFamily.mono,
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         xxs: '0.625rem',

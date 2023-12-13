@@ -3,10 +3,8 @@
 namespace App\Providers;
 
 use App\Macros\AssertableInertiaMixin;
-use App\Macros\BlueprintMixin;
 use App\Macros\RedirectResponseMixin;
 use App\Macros\RequestMixin;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
@@ -21,7 +19,6 @@ class MacroServiceProvider extends ServiceProvider
      */
     protected array $mixins = [
         AssertableInertia::class => AssertableInertiaMixin::class,
-        Blueprint::class => BlueprintMixin::class,
         RedirectResponse::class => RedirectResponseMixin::class,
         Request::class => RequestMixin::class,
     ];

@@ -9,5 +9,6 @@
   "requirePragma": false,
   "proseWrap": "preserve",
   "htmlWhitespaceSensitivity": "strict",
-  "vueIndentScriptAndStyle": true
+  "vueIndentScriptAndStyle": true,
+  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
 }

@@ -2,11 +2,12 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\Account;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -17,10 +18,13 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create a newly registered user.
      *
-     * @param  array  $input
-     * @return \App\Models\User
+     * @param  array<string, string>  $input
+     * @return User
+     *
+     * @throws ValidationException
+     * @throws \Throwable
      */
-    public function create(array $input)
+    public function create(array $input): User
     {
         Validator::make($input, [
             'first_name' => ['required', 'string', 'max:255'],
@@ -36,24 +40,26 @@ class CreateNewUser implements CreatesNewUsers
                 'last_name' => $input['last_name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
+                'email_verified_at' => session('teamInvitation') ? now() : null,
             ]), function (User $user) {
-                $this->createAccount($user);
+                $this->createTeam($user);
             });
         });
     }
 
     /**
-     * Create a personal account for the user.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
+     * Create a personal team for the user.
      */
-    protected function createAccount(User $user)
+    protected function createTeam(User $user): void
     {
-        $user->ownedAccounts()->save(Account::forceCreate([
+        $team = Team::forceCreate([
             'user_id' => $user->id,
-            'name' => $user->first_name."'s Account",
+            'name' => $user->first_name."'s Team",
             'personal_team' => true,
-        ]));
+        ]);
+
+        $user->ownedTeams()->save($team);
+
+        $team->users()->attach($user, ['role' => 'admin']);
     }
 }

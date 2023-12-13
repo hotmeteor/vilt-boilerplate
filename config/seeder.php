@@ -10,7 +10,7 @@ return [
             'account' => [
                 'name' => 'Clair',
                 'url' => 'getclair.com',
-            ]
+            ],
         ],
         [
             'first_name' => 'Jack',

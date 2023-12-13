@@ -22,7 +22,7 @@ class UserSeeder extends BaseSeeder
                     'email' => $data['email'],
                 ]);
 
-            if(array_key_exists('account', $data)) {
+            if (array_key_exists('account', $data)) {
                 $user->personalTeam()->update(data_get($data, 'account'));
             }
 

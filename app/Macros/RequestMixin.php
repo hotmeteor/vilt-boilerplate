@@ -2,7 +2,7 @@
 
 namespace App\Macros;
 
-use App\Models\Account;
+use App\Models\Team;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -22,8 +22,8 @@ class RequestMixin
     /**
      * @return Closure
      */
-    public function account(): Closure
+    public function team(): Closure
     {
-        return fn (): ?Account => $this->user()->currentTeam;
+        return fn (): ?Team => $this->user()->currentTeam;
     }
 }

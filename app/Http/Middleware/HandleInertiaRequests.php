@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -21,7 +22,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @see https://inertiajs.com/asset-versioning
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
     public function version(Request $request): ?string
@@ -34,17 +35,27 @@ class HandleInertiaRequests extends Middleware
      *
      * @see https://inertiajs.com/shared-data
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
-            'auth.account' => fn() => $request->user()
-                ? $request->account()->only(['id', 'name', 'url'])
+            'ziggy' => fn () => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
+
+            'app' => fn () => [
+                'name' => config('app.name'),
+            ],
+
+            'auth.team' => fn () => $request->user()
+                ? $request->team()->only(['id', 'name', 'url'])
                 : null,
-            'auth.user' => fn() => $request->user()
-                ? $request->user()->only('id', 'first_name', 'last_name', 'name', 'email')
+
+            'auth.user' => fn () => $request->user()
+                ? $request->user()->only('id', 'first_name', 'last_name', 'fullname', 'email', 'profile_photo_url')
                 : null,
         ]);
     }

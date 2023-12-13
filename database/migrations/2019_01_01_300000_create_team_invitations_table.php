@@ -8,29 +8,25 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('account_user', function (Blueprint $table) {
+        Schema::create('team_invitations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('account_id');
-            $table->foreignId('user_id');
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->string('email');
             $table->string('role')->nullable();
             $table->timestamps();
 
-            $table->unique(['account_id', 'user_id']);
+            $table->unique(['team_id', 'email']);
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('account_user');
+        Schema::dropIfExists('team_invitations');
     }
 };

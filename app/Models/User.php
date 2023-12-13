@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasSnowflake;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -19,8 +20,8 @@ class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
-    use HasSnowflake;
+
+    //    use HasProfilePhoto;
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
@@ -28,16 +29,20 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'first_name',
+        'last_name',
+        'email',
+        'password',
+        'email_verified_at',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -49,7 +54,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -58,18 +63,52 @@ class User extends Authenticatable
     /**
      * The accessors to append to the model's array form.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $appends = [
         'profile_photo_url',
-        'name',
+        'fullname',
     ];
 
-    /**
-     * @return string
-     */
-    public function getNameAttribute(): string
+    public function socialAccounts(): HasMany
     {
-        return "{$this->first_name} {$this->last_name}";
+        return $this->hasMany(SocialAccount::class);
+    }
+
+    /**
+     * @return Attribute
+     */
+    public function fullname(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => "{$attributes['first_name']} {$attributes['last_name']}",
+        );
+    }
+
+    public function profilePhotoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $email = $attributes['email'];
+
+                $name = "{$attributes['first_name']} {$attributes['last_name']}";
+                $hash = md5(strtolower(trim($email)));
+
+                $gravatarUrl = "https://www.gravatar.com/avatar/{$hash}?s=120&d=mp";
+
+                return $gravatarUrl;
+            }
+        );
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return  array<string, string>|string
+     */
+    public function routeNotificationForMail(Notification $notification): array|string
+    {
+        // Return email address and name...
+        return [$this->email => $this->fullname];
     }
 }
