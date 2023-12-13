@@ -65,3 +65,21 @@ If you want to format your PHP code locally you can run `composer tidy`. This wi
 ##### Frontend
 
 If you want to format your Vue or JS files locally you can run `npm run prettier`. This will clean up your formattting, plus reorganize imports and reorganize Tailwind classes.
+
+***
+
+### Credits
+
+- [Adam Campbell](https://github.com/hotmeteor) created and manages this thing
+- All of the people from the aforementioned packages, libraries, tools, etc. that did all the hard and important work
+- [All Contributors](../../contributors)
+
+<a href = "https://github.com/hotmeteor/vilt-boilerplate/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=hotmeteor/vilt-boilerplate"/>
+</a>
+
+Made with [contributors-img](https://contrib.rocks).
+
+### License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
