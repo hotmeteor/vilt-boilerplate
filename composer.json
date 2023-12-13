@@ -9,13 +9,11 @@
         "doctrine/dbal": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
-        "jenssegers/optimus": "^1.1",
         "laravel/framework": "^10.37",
         "laravel/jetstream": "^4.0",
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.7",
-        "socialiteproviders/manager": "^4.2",
         "spatie/laravel-sitemap": "^7.0",
         "tightenco/ziggy": "^1.8"
     },
