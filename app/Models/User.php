@@ -104,7 +104,7 @@ class User extends Authenticatable
     /**
      * Route notifications for the mail channel.
      *
-     * @return  array<string, string>|string
+     * @return array<string, string>|string
      */
     public function routeNotificationForMail(Notification $notification): array|string
     {
