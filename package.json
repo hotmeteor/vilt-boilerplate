@@ -38,8 +38,5 @@
         "vite": "^4.0.0",
         "vue": "^3.3.11",
         "vue-boring-avatars": "^1.4.0"
-    },
-    "devDependencies": {
-        "@volar/vue-typescript": "^1.6.5"
     }
 }
